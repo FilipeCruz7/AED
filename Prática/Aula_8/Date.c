@@ -16,7 +16,7 @@
 const Date DateMIN = {0, 1, 1};
 const Date DateMAX = {9999, 12, 31};
 
-// Check if a yy,mm,dd tuple forms a valid date.
+// Check if a yy,mm,dd tuple forms a valid date..
 // (This would be a public static method in Java.)
 int DateIsValid(int yy, int mm, int dd) {
   return (DateMIN.year) <= yy && yy <= (DateMAX.year) && 1 <= mm && mm <= 12 &&
