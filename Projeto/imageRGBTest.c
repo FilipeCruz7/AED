@@ -50,7 +50,7 @@ int main(int argc, char* argv[]) {
 
   printf("5) ImageCopy\n");
   Image copy_image = ImageCopy(image_chess_1);
-  // ImageRAWPrint(copy_image);
+   //ImageRAWPrint(copy_image);
   if (copy_image != NULL) {
     ImageSavePBM(copy_image, "copy_image.pbm");
   }

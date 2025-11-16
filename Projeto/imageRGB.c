@@ -281,13 +281,38 @@ void ImageDestroy(Image* imgp) {
 ///
 /// On success, a new copied image is returned.
 /// (The caller is responsible for destroying the returned image!)
-Image ImageCopy(const Image img) {
+Image ImageCopy(const Image img) {                 //É dado uma imagem, precisamos de alocar memória com as mesmas dimensões da imagem dada
   assert(img != NULL);
 
-  // TO BE COMPLETED
-  // ...
 
-  return NULL;
+  Image newImg = AllocateImageHeader(img-> width, img-> height);  //Chama uma função para alocar a nova imagem com altura e largura da original
+
+  newImg->num_colors = img->num_colors; //Copia APENAS O NÚMERO de cores da LUT original
+
+  for (uint16 i = 0; i < FIXED_LUT_SIZE; i++) {     //Aqui vai copiar as cores da LUT original e colocar no sitio certo da LUT copiada, por exemplo cor 0 = branco, cor 1 = preto, etc...
+    newImg->LUT[i] = img->LUT[i];
+  }
+
+  for (uint32 i = 0; i < newImg->height; i++) {   //Aqui vai colocar as cores certas da LUT nos pixeis certos de acordo com a imagem original, ciclo 2 for para ver as coordenadas i e j
+    
+    // Aloca memória para a linha 'i' da tela
+    newImg->image[i] = malloc(newImg->width * sizeof(uint16));   
+
+
+    //Sugestão de colocar aqui um comando para ver se o malloc falhou
+
+
+    // Copia os pixéis (os índices) da linha 'i'
+    for (uint32 j = 0; j < newImg->width; j++) {
+        // Ex: "O pixel (i,j) da nova tela deve usar a cor nº 5"
+        newImg->image[i][j] = img->image[i][j];
+    }
+ }
+  
+  // TO BE COMPLETED 
+  // JÁ ESTÁ
+
+  return newImg;
 }
 
 /// Printing on the console
