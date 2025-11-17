@@ -31,11 +31,11 @@ int main(int argc, char* argv[]) {
 
   printf("1) ImageCreate\n");
   Image white_image = ImageCreate(100, 100);
-  // ImageRAWPrint(white_image);
+   //ImageRAWPrint(white_image);                                 
 
   printf("2) ImageCreateChess(black)+ ImageSavePBM\n");
   Image image_chess_1 = ImageCreateChess(150, 120, 30, 0x000000);  // black
-  // ImageRAWPrint(image_chess_1);
+   //ImageRAWPrint(image_chess_1);                                                  
   ImageSavePBM(image_chess_1, "chess_image_1.pbm");
 
   printf("3) ImageCreateChess(red) + ImageSavePPM\n");
@@ -45,12 +45,12 @@ int main(int argc, char* argv[]) {
 
   printf("4) ImageCreateChess(all black)\n");
   Image black_image = ImageCreateChess(100, 100, 100, 0x000000);  // all black
-  // ImageRAWPrint(black_image);
+   //ImageRAWPrint(black_image);                                                      
   ImageSavePBM(black_image, "black_image.pbm");
 
   printf("5) ImageCopy\n");
   Image copy_image = ImageCopy(image_chess_1);
-   //ImageRAWPrint(copy_image);
+   //ImageRAWPrint(copy_image);                                    
   if (copy_image != NULL) {
     ImageSavePBM(copy_image, "copy_image.pbm");
   }
@@ -67,6 +67,18 @@ int main(int argc, char* argv[]) {
   Image image_3 = ImageCreatePalete(4 * 32, 4 * 32, 4);
   ImageSavePPM(image_3, "palete.ppm");
 
+
+  printf("9) Rodar 90\n");
+  Image image_90 = ImageRotate90CW(image_1);
+  ImageRAWPrint(image_90); 
+
+
+  printf("10) Rodar 180\n");
+  Image image_180 = ImageRotate180CW(image_1);
+  ImageRAWPrint(image_180);
+
+
+
   ImageDestroy(&white_image);
   ImageDestroy(&black_image);
   if (copy_image != NULL) {
@@ -77,6 +89,9 @@ int main(int argc, char* argv[]) {
   ImageDestroy(&image_1);
   ImageDestroy(&image_2);
   ImageDestroy(&image_3);
+  ImageDestroy(&image_90);
+  ImageDestroy(&image_180);
+
 
   return 0;
 }

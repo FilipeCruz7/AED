@@ -284,7 +284,6 @@ void ImageDestroy(Image* imgp) {
 Image ImageCopy(const Image img) {                 //É dado uma imagem, precisamos de alocar memória com as mesmas dimensões da imagem dada
   assert(img != NULL);
 
-
   Image newImg = AllocateImageHeader(img-> width, img-> height);  //Chama uma função para alocar a nova imagem com altura e largura da original
 
   newImg->num_colors = img->num_colors; //Copia APENAS O NÚMERO de cores da LUT original
@@ -310,7 +309,7 @@ Image ImageCopy(const Image img) {                 //É dado uma imagem, precisa
  }
   
   // TO BE COMPLETED 
-  // JÁ ESTÁ
+  // ESTÁ FEITO
 
   return newImg;
 }
@@ -611,10 +610,36 @@ int ImageIsDifferent(const Image img1, const Image img2) {
 Image ImageRotate90CW(const Image img) {
   assert(img != NULL);
 
-  // TO BE COMPLETED
-  // ...
+  Image newImg = AllocateImageHeader(img-> height, img-> width);  //Chama uma função para alocar a nova imagem com altura e largura ao contrário da original
 
-  return NULL;
+  newImg->num_colors = img->num_colors; //Copia APENAS O NÚMERO de cores da LUT original
+
+  for (uint16 i = 0; i < FIXED_LUT_SIZE; i++) {     //Aqui vai copiar as cores da LUT original e colocar no sitio certo da LUT copiada, por exemplo cor 0 = branco, cor 1 = preto, etc...
+    newImg->LUT[i] = img->LUT[i];
+  }
+
+ for (uint32 i = 0; i < newImg->height; i++) {   //Aqui vai colocar as cores certas da LUT nos pixeis certos de acordo com a imagem original, ciclo 2 for para ver as coordenadas i e j
+    
+    // Aloca memória para a linha 'i' da tela
+    newImg->image[i] = malloc(newImg->width * sizeof(uint16));   
+
+
+    //Sugestão de colocar aqui um comando para ver se o malloc falhou
+
+
+    // Copia os pixéis (os índices) da linha 'i'
+    for (uint32 j = 0; j < newImg->width; j++) {
+        // Ex: "O pixel (i,j) da nova tela deve usar a cor nº 5"
+        newImg->image[i][j] = img->image[j][img->width - 1 - i];
+    }
+ }
+
+
+
+  // TO BE COMPLETED
+  // ESTÁ FEITO
+
+  return newImg;
 }
 
 /// Rotate 180 degrees clockwise (CW).
@@ -626,10 +651,34 @@ Image ImageRotate90CW(const Image img) {
 Image ImageRotate180CW(const Image img) {
   assert(img != NULL);
 
-  // TO BE COMPLETED
-  // ...
+  Image newImg = AllocateImageHeader(img-> width, img-> height);  //Chama uma função para alocar a nova imagem com altura e largura da original
 
-  return NULL;
+  newImg->num_colors = img->num_colors; //Copia APENAS O NÚMERO de cores da LUT original
+
+  for (uint16 i = 0; i < FIXED_LUT_SIZE; i++) {     //Aqui vai copiar as cores da LUT original e colocar no sitio certo da LUT copiada, por exemplo cor 0 = branco, cor 1 = preto, etc...
+    newImg->LUT[i] = img->LUT[i];
+  }
+
+ for (uint32 i = 0; i < newImg->height; i++) {   //Aqui vai colocar as cores certas da LUT nos pixeis certos de acordo com a imagem original, ciclo 2 for para ver as coordenadas i e j
+    
+    // Aloca memória para a linha 'i' da tela
+    newImg->image[i] = malloc(newImg->width * sizeof(uint16));   
+
+
+    //Sugestão de colocar aqui um comando para ver se o malloc falhou
+
+
+    // Copia os pixéis (os índices) da linha 'i'
+    for (uint32 j = 0; j < newImg->width; j++) {
+        // Ex: "O pixel (i,j) da nova tela deve usar a cor nº 5"
+        newImg->image[i][j] = img->image[img->height - 1- i][img->width - 1 - j];
+    }
+ } 
+
+  // TO BE COMPLETED
+  // ESTÁ FEITO
+
+  return newImg;
 }
 
 /// Check whether pixel coords (u, v) are inside img.
