@@ -78,6 +78,15 @@ int main(int argc, char* argv[]) {
   ImageRAWPrint(image_180);
 
 
+  printf("11) Verificar se sao iguais\n");
+  if (ImageIsEqual(image_chess_1, image_chess_1) == 1){
+    printf("Sao iguais");
+  }
+  else {
+    printf("Sao diferentes");
+  }
+
+
 
   ImageDestroy(&white_image);
   ImageDestroy(&black_image);

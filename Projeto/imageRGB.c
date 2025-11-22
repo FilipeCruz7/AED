@@ -580,10 +580,32 @@ int ImageIsEqual(const Image img1, const Image img2) {
   assert(img1 != NULL);
   assert(img2 != NULL);
 
-  // TO BE COMPLETED
-  // ...
+  if (img1->width != img2->width || img1->height != img2->height || img1->num_colors != img2->num_colors){
+    return 0;
+  }
 
-  return 0;
+  for (uint32 i = 0; i < img1->height; i++) {
+    for (uint32 j = 0; j< img1->width; j++) {
+
+      uint16 cordimg1 = img1 -> image[i][j];  //Para ter as coordenadas do pixel
+      uint16 cordimg2 = img2 -> image[i][j];
+
+      rgb_t rgbimg1 = img1 -> LUT[cordimg1];  //Para obter a cor em termos rgb em vez da posição do LUT
+      rgb_t rgbimg2 = img2 -> LUT[cordimg2];
+
+
+      if (rgbimg1 != rgbimg2){
+        return 0;
+      }
+    }
+
+  }
+
+
+  // TO BE COMPLETED
+  // ESTÁ FEITO (FALTA ACRESCENTAR AS COISAS PARA O RELATÓRIO/ CONTADOR)
+
+  return 1;
 }
 
 int ImageIsDifferent(const Image img1, const Image img2) {
