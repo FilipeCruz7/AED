@@ -284,7 +284,7 @@ void ImageDestroy(Image* imgp) {
 Image ImageCopy(const Image img) {                 //É dado uma imagem, precisamos de alocar memória com as mesmas dimensões da imagem dada
   assert(img != NULL);
 
-  Image newImg = AllocateImageHeader(img-> width, img-> height);  //Chama uma função para alocar a nova imagem com altura e largura da original
+  Image newImg = ImageCreate(img-> width, img ->height);  //Chama uma função para alocar a nova imagem com altura e largura da original
 
   newImg->num_colors = img->num_colors; //Copia APENAS O NÚMERO de cores da LUT original
 
@@ -579,27 +579,41 @@ uint16 ImageColors(const Image img) {
 int ImageIsEqual(const Image img1, const Image img2) {
   assert(img1 != NULL);
   assert(img2 != NULL);
+  int counter = 0;
+
 
   if (img1->width != img2->width || img1->height != img2->height || img1->num_colors != img2->num_colors){
+
+    counter ++;
+
+    printf("Numero do contador (falhouuuu): %d\n", counter);
     return 0;
   }
+
+
 
   for (uint32 i = 0; i < img1->height; i++) {
     for (uint32 j = 0; j< img1->width; j++) {
 
-      uint16 cordimg1 = img1 -> image[i][j];  //Para ter as coordenadas do pixel
-      uint16 cordimg2 = img2 -> image[i][j];
+      uint16 LUTNumberimg1 = img1 -> image[i][j];  //Para ter o número da LUT
+      uint16 LUTNumberimg2 = img2 -> image[i][j];
 
-      rgb_t rgbimg1 = img1 -> LUT[cordimg1];  //Para obter a cor em termos rgb em vez da posição do LUT
-      rgb_t rgbimg2 = img2 -> LUT[cordimg2];
+      rgb_t rgbimg1 = img1 -> LUT[LUTNumberimg1];  //Para obter a cor em termos rgb em vez da posição do LUT
+      rgb_t rgbimg2 = img2 -> LUT[LUTNumberimg2];
 
+
+      counter ++;
 
       if (rgbimg1 != rgbimg2){
+        printf("Numero do contador (falhou): %d\n", counter);
+
         return 0;
       }
     }
 
   }
+
+  printf("Numero do contador: %d\n", counter);
 
 
   // TO BE COMPLETED

@@ -34,8 +34,8 @@ int main(int argc, char* argv[]) {
    //ImageRAWPrint(white_image);                                 
 
   printf("2) ImageCreateChess(black)+ ImageSavePBM\n");
-  Image image_chess_1 = ImageCreateChess(150, 120, 30, 0x000000);  // black
-   //ImageRAWPrint(image_chess_1);                                                  
+  Image image_chess_1 = ImageCreateChess(20, 20, 8, 0x000000);  // black
+   ImageRAWPrint(image_chess_1);                                                  
   ImageSavePBM(image_chess_1, "chess_image_1.pbm");
 
   printf("3) ImageCreateChess(red) + ImageSavePPM\n");
@@ -50,7 +50,7 @@ int main(int argc, char* argv[]) {
 
   printf("5) ImageCopy\n");
   Image copy_image = ImageCopy(image_chess_1);
-   ImageRAWPrint(copy_image);                                    
+   //ImageRAWPrint(copy_image);                                    
   if (copy_image != NULL) {
     ImageSavePBM(copy_image, "copy_image.pbm");
   }
@@ -79,11 +79,12 @@ int main(int argc, char* argv[]) {
 
 
   printf("11) Verificar se sao iguais\n");
-  if (ImageIsEqual(image_chess_1, image_chess_1) == 1){
+  if (ImageIsEqual(image_chess_1, image_chess_2) == 1){
     printf("Sao iguais");
   }
   else {
     printf("Sao diferentes");
+
   }
 
 
